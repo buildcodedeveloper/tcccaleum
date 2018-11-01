@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{event/layout}">
+<head>
+    <title>Task List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+</head>
+<body>
+
+<!--/* Content of this page will be decorated by the elements of layout.html (task/layout) */-->
+<div layout:fragment="content">
+
+    <!--/* Demonstrating layout:include */-->
+
+
+    <div class="card-body">
+
+
+        <div class="row">
+            <div class="col text-right">
+                <a href="#" class="btn btn-success" th:href="@{/event/create}">Novo</a>
+            </div>
+        </div>
+        <br />
+
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Data de Cadastro</td>
+            <td>Título</td>
+            <td>Descricao</td>
+            <td>Criado por</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="event : ${events}">
+            <td th:text="${event.id}">1</td>
+            <td>
+                <a href="#" th:href="@{/task-ld/{id}(id=${event.id})}" th:text="${event.title}">Title ...</a>
+            </td>
+            <td th:text="${event.text}">Text ...</td>
+            <td th:text="${#calendars.format(event.dueTo)}">July 11, 2017 2:17:16 PM CDT</td>
+        </tr>
+        <tr th:if="${events.empty}">
+            <td colspan="4">Nenhum evento foi cadastrado!</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="../../../resources/js/jquery.min.js" th:src="@{/resources/js/jquery.min.js}"></script>
+<script src="../../../resources/js/bootstrap.min.js" th:src="@{/resources/js/bootstrap.min.js}"></script>
+</body>
+</html>
